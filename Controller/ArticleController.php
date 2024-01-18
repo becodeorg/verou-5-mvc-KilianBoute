@@ -1,9 +1,15 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
+
 
 class ArticleController
 {
+    private $databaseManager;
+    public function __construct(DatabaseManager $databaseManager)
+    {
+        $this->databaseManager = $databaseManager;
+    }
     public function index()
     {
         // Load all required data
@@ -19,15 +25,22 @@ class ArticleController
         // TODO: prepare the database connection
         // Note: you might want to use a re-usable databaseManager class - the choice is yours
         // TODO: fetch all articles as $rawArticles (as a simple array)
-        $rawArticles = [];
 
-        $articles = [];
-        foreach ($rawArticles as $rawArticle) {
-            // We are converting an article from a "dumb" array to a much more flexible class
-            $articles[] = new Article($rawArticle['title'], $rawArticle['description'], $rawArticle['publish_date']);
+        try {
+            $rawArticles = [];
+            $articles = [];
+            $query = "SELECT * FROM articles";
+            $statement = $this->databaseManager->connection->query($query);
+            $rawData = $statement->fetchAll(); // Fetches as array
+
+            foreach ($rawData as $rawArticle) {
+                $articles[] = new Article($rawArticle['title'], $rawArticle['description'], $rawArticle['publish_date']);
+            }
+
+            return $articles;
+        } catch (PDOException $err) {
+            throw new RuntimeException($err->getMessage());
         }
-
-        return $articles;
     }
 
     public function show()
