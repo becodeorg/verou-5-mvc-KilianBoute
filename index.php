@@ -20,6 +20,7 @@ $databaseManager->connect();
 // Get the current page to load
 // If nothing is specified, it will remain empty (home should be loaded)
 $page = $_GET['page'] ?? null;
+$id = $_GET['id'] ?? null;
 
 // Load the controller
 // It will *control* the rest of the work to load the page
@@ -30,9 +31,10 @@ switch ($page) {
         // $articleController->index();
         (new ArticleController($databaseManager))->index();
         break;
-    case 'articles':
+    case 'show-article':
         // TODO: detail page
-    case 'home':
+        (new ArticleController($databaseManager))->show($id);
+        break;
     default:
         (new HomepageController())->index();
         break;

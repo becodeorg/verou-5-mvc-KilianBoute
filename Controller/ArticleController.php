@@ -14,7 +14,6 @@ class ArticleController
     {
         // Load all required data
         $articles = $this->getArticles();
-
         // Load the view
         require 'View/articles/index.php';
     }
@@ -34,7 +33,7 @@ class ArticleController
             $rawData = $statement->fetchAll(); // Fetches as array
 
             foreach ($rawData as $rawArticle) {
-                $articles[] = new Article($rawArticle['title'], $rawArticle['description'], $rawArticle['publish_date']);
+                $articles[] = new Article($rawArticle['id'], $rawArticle['title'], $rawArticle['description'], $rawArticle['publish_date']);
             }
 
             return $articles;
@@ -43,8 +42,12 @@ class ArticleController
         }
     }
 
-    public function show()
+    public function show($id)
     {
         // TODO: this can be used for a detail page
+        $articles = $this->getArticles();
+        $article = $articles[$id - 1];
+
+        require 'View/articles/show.php';
     }
 }
