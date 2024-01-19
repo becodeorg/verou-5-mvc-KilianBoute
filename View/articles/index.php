@@ -9,7 +9,7 @@
     <ul>
 
         <?php foreach ($articles as $article) : ?>
-            <li><a href="index.php?page=show-article&id=<?= $article->getId() ?>"><?= $article->title ?> <?= $article->formatPublishDate() ?></a></li>
+            <li><a href="index.php?page=show-article&id=<?= $article->getId() ?>"><?= $article->title ?> on <?= $article->formatPublishDate() ?></a> by <a href=""> <?= $article->author->getName() ?></a></li>
         <?php endforeach; ?>
     </ul>
 </section>

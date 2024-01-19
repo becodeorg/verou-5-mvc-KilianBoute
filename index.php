@@ -8,6 +8,7 @@ error_reporting(E_ALL);
 
 //include all your model files here
 require_once 'Model/Article.php';
+require_once 'Model/Author.php';
 require_once 'core/config.php';
 //include all your controllers here
 require_once 'Core/DatabaseManager.php';

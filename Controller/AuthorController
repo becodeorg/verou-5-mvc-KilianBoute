@@ -1,0 +1,12 @@
+<?php
+
+declare(strict_types=1);
+
+class AuthorController
+{
+    private $databaseManager;
+    public function __construct(DatabaseManager $databaseManager)
+    {
+        $this->databaseManager = $databaseManager;
+    }
+}

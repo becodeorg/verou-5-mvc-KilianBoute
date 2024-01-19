@@ -26,13 +26,14 @@ class ArticleController
         // TODO: fetch all articles as $rawArticles (as a simple array)
 
         try {
+            $authors = $this->getAuthors();
             $articles = [];
             $query = "SELECT * FROM articles";
             $statement = $this->databaseManager->connection->query($query);
             $rawData = $statement->fetchAll(); // Fetches as array
-
             foreach ($rawData as $rawArticle) {
-                $articles[] = new Article($rawArticle['id'], $rawArticle['title'], $rawArticle['description'], $rawArticle['publish_date'], $rawArticle['image']);
+                $author = $authors[$rawArticle['author_id'] - 1];
+                $articles[] = new Article($rawArticle['id'], $rawArticle['title'], $rawArticle['description'], $rawArticle['publish_date'], $rawArticle['image'], $author);
             }
 
             return $articles;
@@ -48,5 +49,21 @@ class ArticleController
         $article = $articles[$id - 1];
 
         require 'View/articles/show.php';
+    }
+
+    public function getAuthors()
+    {
+        try {
+            $authors = [];
+            $query = "SELECT * FROM authors";
+            $statement = $this->databaseManager->connection->query($query);
+            $rawData = $statement->fetchAll(); // Fetches as array
+            foreach ($rawData as $rawAuthor) {
+                $authors[] = new Author($rawAuthor['id'], $rawAuthor['name']);
+            }
+            return $authors;
+        } catch (PDOException $err) {
+            throw new RuntimeException($err->getMessage());
+        }
     }
 }
