@@ -8,10 +8,16 @@
     <p><?= $article->formatPublishDate() ?></p>
     <p><?= $article->description ?></p>
 
-    <?php // TODO: links to next and previous 
-    ?>
-    <a href="index.php?page=show-article&id=<?= (int)$article->getId() - 1 ?>">Previous article</a>
-    <a href="index.php?page=show-article&id=<?= (int)$article->getId() + 1 ?>">Next article</a>
+    <?php if ((int)$article->getId() - 1 <= 0) { ?>
+        <span class="disabled">Previous article</span>
+    <?php } else { ?>
+        <a href="index.php?page=show-article&id=<?= (int)$article->getId() - 1 ?>">Previous article</a>
+    <?php } ?>
+    <?php if ((int)$article->getId() + 1 > count($articles)) { ?>
+        <span class="disabled">Next article</span>
+    <?php } else { ?>
+        <a href="index.php?page=show-article&id=<?= (int)$article->getId() + 1 ?>">Next article</a>
+    <?php } ?>
 </section>
 
 

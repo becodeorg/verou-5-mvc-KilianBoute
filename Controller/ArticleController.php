@@ -19,14 +19,13 @@ class ArticleController
     }
 
     // Note: this function can also be used in a repository - the choice is yours
-    private function getArticles()
+    private function getArticles(): array
     {
         // TODO: prepare the database connection
         // Note: you might want to use a re-usable databaseManager class - the choice is yours
         // TODO: fetch all articles as $rawArticles (as a simple array)
 
         try {
-            $rawArticles = [];
             $articles = [];
             $query = "SELECT * FROM articles";
             $statement = $this->databaseManager->connection->query($query);
