@@ -7,6 +7,9 @@
     <h1><?= $article->title ?></h1>
     <p><?= $article->formatPublishDate() ?></p>
     <p><?= $article->description ?></p>
+    <?php if (isset($article->image)) : ?>
+        <img src="<?php echo $article->image; ?>" alt="Article Image"></br></br>
+    <?php endif; ?>
 
     <?php if ((int)$article->getId() - 1 <= 0) { ?>
         <span class="disabled">Previous article</span>

@@ -32,7 +32,7 @@ class ArticleController
             $rawData = $statement->fetchAll(); // Fetches as array
 
             foreach ($rawData as $rawArticle) {
-                $articles[] = new Article($rawArticle['id'], $rawArticle['title'], $rawArticle['description'], $rawArticle['publish_date']);
+                $articles[] = new Article($rawArticle['id'], $rawArticle['title'], $rawArticle['description'], $rawArticle['publish_date'], $rawArticle['image']);
             }
 
             return $articles;

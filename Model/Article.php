@@ -9,17 +9,20 @@ class Article
     public ?string $description;
     public ?string $publishDate;
 
-    public function __construct(int $id, string $title, ?string $description, ?string $publishDate)
+    public ?string $image;
+
+    public function __construct(int $id, string $title, ?string $description, ?string $publishDate, ?string $image)
     {
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
         $this->publishDate = $publishDate;
+        $this->image = $image;
     }
 
-    public function formatPublishDate($format = 'DD-MM-YYYY')
+    public function formatPublishDate($format = "d-m-Y")
     {
-        return date("d-m-Y", strtotime($this->publishDate));
+        return date($format, strtotime($this->publishDate));
     }
 
     public function getId(): int
